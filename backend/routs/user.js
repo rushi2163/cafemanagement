@@ -8,6 +8,10 @@ require('dotenv').config();
 // node mailer to send password to the user
 const nodemailer = require('nodemailer');
 
+// importing services (middleware)
+var auth = require('../services/authentication')
+var checkRole=require('../services/checkRole')
+
 router.post('/signup',(req,res)=>{
     let user= req.body;
     
@@ -111,7 +115,7 @@ router.post('/forgotpassword',(req,res)=>{
 })
 
 //get all users not with role user
-router.get('get',(req,res)=>{
+router.get('/get',auth.authenticateToken,checkRole.checkRole,(req,res)=>{
     var query="select id,name,email,contactNumber,status from user where role='user'";
     connection.query(query,(err,result)=>{
         if(!err){
@@ -123,7 +127,7 @@ router.get('get',(req,res)=>{
     })
 })
 //update role of user
-router.patch('/update',(req,res)=>{
+router.patch('/update',auth.authenticateToken,checkRole.checkRole,(req,res)=>{
     let user= req.body;
     var query="update user set status=? where id=?";
     connection.query(query,[user.status,user.id],(err,result)=>{
@@ -140,6 +144,20 @@ router.patch('/update',(req,res)=>{
         }
     })
 
+})
+
+//this api is used to chaeck whethher token is valid or not 
+//1.30.00
+router.get('/checkToken',auth.authenticateToken,(req,res)=>{
+    var query="select id,name,email,contactNumber,status from user where role='user'";
+    connection.query(query,(err,result)=>{
+        if(!err){
+            return res.status(200).json({result});
+        }
+        else{
+            return  res.status(500).json({message:err});
+        }
+    })
 })
 
 
