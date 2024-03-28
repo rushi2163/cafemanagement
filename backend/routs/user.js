@@ -68,7 +68,8 @@ router.post('/login', (req,res)=>{//59.42
 })
 
 
-
+//modemailer is used to send email 
+//but to do this first we have to get access to our gamil account where we generate app password to use 
 var transporter = nodemailer.createTransport({
     service:'gmail',
     auth:{
@@ -76,7 +77,7 @@ var transporter = nodemailer.createTransport({
         pass:process.env.PASSWORD
     }
 })
-
+//forgot password api with email 
 router.post('/forgotpassword',(req,res)=>{
     let user= req.body;
     var query="select email,password from user where email=?";
@@ -107,6 +108,38 @@ router.post('/forgotpassword',(req,res)=>{
             return res.status(500).json(err);
         }
     })
+})
+
+//get all users not with role user
+router.get('get',(req,res)=>{
+    var query="select id,name,email,contactNumber,status from user where role='user'";
+    connection.query(query,(err,result)=>{
+        if(!err){
+            return res.status(200).json({result});
+        }
+        else{
+            return  res.status(500).json({message:err});
+        }
+    })
+})
+//update role of user
+router.patch('/update',(req,res)=>{
+    let user= req.body;
+    var query="update user set status=? where id=?";
+    connection.query(query,[user.status,user.id],(err,result)=>{
+        if(!err){
+            // console.log(result);
+            if(result.affectedRows==0){
+                return res.status(404).json({message:"user dose not exist"});
+            }
+
+            return res.status(200).json({message:"user updated Sucessfully"});
+        }
+        else{
+            return  res.status(500).json({message:err});
+        }
+    })
+
 })
 
 
