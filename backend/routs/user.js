@@ -149,16 +149,41 @@ router.patch('/update',auth.authenticateToken,checkRole.checkRole,(req,res)=>{
 //this api is used to chaeck whethher token is valid or not 
 //1.30.00
 router.get('/checkToken',auth.authenticateToken,(req,res)=>{
-    var query="select id,name,email,contactNumber,status from user where role='user'";
-    connection.query(query,(err,result)=>{
-        if(!err){
-            return res.status(200).json({result});
-        }
-        else{
-            return  res.status(500).json({message:err});
-        }
-    })
+    // console.log(res);
+    return res.status(200).json({message: "true"});
 })
+
+
+
+
+
+
+router.post("/changePassword",auth.authenticateToken,(req, res) => {
+  const user = req.body;
+  const email = res.locals.email;
+  var query = "select *from user where email=? and password=?";
+  connection.query(query, [email, user.oldPassword], (err, results) => {
+    if (!err) {
+      if (results.length <= 0) {
+        return res.status(400).json({ message: "Incorrect Old Password" });
+      } else if (results[0].password==user.oldPassword) {
+        query = "update user set password=? where email=?";
+        connection.query(query, [user.newPassword, email], (err, results) => {
+          if (!err) {
+            return res.status(200).json({ message: "Password Updated Successfully." });
+          } else {
+            return res.status(500).json(err);
+          }
+        });
+      } else {
+        return res.status(400).json({ message: "Something went wrong. Please try again later" });
+      }
+    } else {
+      return res.status(500).json(err);
+    }
+  });
+});
+   
 
 
 module.exports=router
