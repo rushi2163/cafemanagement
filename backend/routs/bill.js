@@ -96,5 +96,33 @@ router.post('/getPdf',auth.authenticateToken,function(req,res){
     }
     
 })
-
+// to get all bills
+router.get('/getBills',auth.authenticateToken,(req,res,next)=>{
+    let category=req.body;
+    query='select * from bill order by id desc';
+    connection.query(query,(err,result)=>{
+        if(!err){
+            return res.status(200).json(result);
+        }
+        else{
+            return  res.status(500).json({message:err});
+        }
+    })
+})
+// to delete bill
+router.delete('/delete/:id',auth.authenticateToken,(req,res,next)=>{
+    const id =req.params.id;
+    query="delete from bill where id=?";
+    connection.query(query,[id],(err,result)=>{
+        if(!err){
+            if(result.affectedRows==0){
+                return res.status(404).json({message:"Bill id dose not found"});
+            }
+            return res.status(200).json({message:"Bill deleted Successfully"});
+        }
+        else{
+            return  res.status(500).json({message:err});
+        }
+    })
+})
 module.exports=router;
