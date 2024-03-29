@@ -5,6 +5,7 @@ const connection= require('./connection');
 const userRoute=require('./routs/user');
 const categoryRoute=require('./routs/category');
 const productRoute=require('./routs/product');
+const billRoute=require('./routs/bill');
 
 var cors= require( 'cors')
 const app = express();
@@ -14,5 +15,7 @@ app.use(express.json());
 app.use('/user',userRoute);//when you go to user path it will call userRoute file
 app.use('/category',categoryRoute)
 app.use('/product',productRoute);
+app.use('/bill',billRoute)
+
 
 module. exports= app;
