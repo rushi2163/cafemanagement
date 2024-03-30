@@ -1,6 +1,7 @@
 export class GlobalConstant{
     // this is golbal message 
     public static genericError:string="Something went wrong. please try again later"
+    public static unauthroized:string="you are not unauthroized person"
     // rejex to apply it at verious input fields
     public static nameRegex:string="[a-zA-Z0-9]*"
     public static emailRegex:string="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"

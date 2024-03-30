@@ -5,7 +5,6 @@ const jwt= require('jsonwebtoken');
 function authenticateToken(req,res,next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]//&& is the logical AND operator in JavaScript. It returns the second operand if the first operand is truthy; otherwise, it returns the first operand.
-    // console.log(authHeader);
     if (token==null){
         return res.sendStatus(401);
     }

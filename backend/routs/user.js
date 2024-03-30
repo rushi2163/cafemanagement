@@ -58,7 +58,7 @@ router.post('/login', (req,res)=>{//59.42
                 const response ={email:result[0].email,role:result[0].role}
                 const accessToken = jwt.sign(response,process.env.ACCESS_TOKEN, {expiresIn:'1h'});
                 //using login information a jwt token will be created and it have expiry
-                res.status(200).json({token:accessToken}) ;
+                res.status(200).json({token:accessToken,message:"login successfully"}) ;
 
             }
             else{
