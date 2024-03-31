@@ -7,15 +7,14 @@ export interface Menu{
     role : string;
 }
 
-const MENUITEMS=[
-    {state: 'dashboard',name : 'Dashboard',icon: 'dashboard',role : ''}
-   
-    
-]
+var MENUITEMS=[
+    {state: 'dashboard',name : 'Dashboard',icon: 'dashboard',role : ''},
+    {state: 'category',name : 'manage category',icon: 'category',role : 'admin'}  
+];
 
 @Injectable()
 export class MenuItems{
-    getMenuitem(): Menu[]{
+    getMenuitem():Menu[]{
         return MENUITEMS;
     }
         
