@@ -44,7 +44,7 @@ router.post('/generateReport',auth.authenticateToken,(req,res,next)=>{
                             return  res.status(500).json({message:"error in pdf.create",err:err});
                         }
                         else{
-                            return res.status(200).json({UUID:generateUUID});
+                            return res.status(200).json({uuid:generateUUID});
                         }
                     })
                 }
@@ -62,6 +62,7 @@ router.post('/generateReport',auth.authenticateToken,(req,res,next)=>{
 //this method is used to send pdf to user using uuid 
 router.post('/getPdf',auth.authenticateToken,function(req,res){
     const orderDetails = req.body;
+    console.log(orderDetails);
     const pdfPath = './generated_pdf/'+orderDetails.uuid+'.pdf' ;
     if(fs.existsSync(pdfPath) ) {
         res.contentType( "application/pdf" ) ;

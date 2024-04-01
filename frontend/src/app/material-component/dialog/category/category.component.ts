@@ -62,7 +62,7 @@ export class CategoryComponent implements OnInit {
       this.onEditCategory.emit( ) ;
       this.responsemessage = response.message;
       this.snackbarService.openSnackBar( this.responsemessage," success " ) ;
-    },(error)=>{
+    },(error:any)=>{
       this.dialogRef.close() ;
       if(error.error?.message){
         this.responsemessage=error.error?.message;}

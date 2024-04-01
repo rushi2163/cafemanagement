@@ -10,7 +10,8 @@ export interface Menu{
 var MENUITEMS=[
     {state: 'dashboard',name : 'Dashboard',icon: 'dashboard',role : ''},
     {state: 'category',name : 'manage category',icon: 'category',role : 'admin'},
-    {state: 'product',name : 'manage Product',icon: 'inventory_2',role : 'admin'}  
+    {state: 'product',name : 'manage Product',icon: 'inventory_2',role : 'admin'},
+    {state: 'order',name : 'manage order',icon: 'list_alt',role : ''}  
 ];
 
 @Injectable()
