@@ -119,7 +119,7 @@ router.get('/get',auth.authenticateToken,checkRole.checkRole,(req,res)=>{
     var query="select id,name,email,contactNumber,status from user where role='user'";
     connection.query(query,(err,result)=>{
         if(!err){
-            return res.status(200).json({result});
+            return res.status(200).json(result);
         }
         else{
             return  res.status(500).json({message:err});

@@ -12,7 +12,8 @@ var MENUITEMS=[
     {state: 'category',name : 'manage category',icon: 'category',role : 'admin'},
     {state: 'product',name : 'manage Product',icon: 'inventory_2',role : 'admin'},
     {state: 'order',name : 'manage order',icon: 'list_alt',role : ''}  ,
-    {state: 'bill',name : 'View bill',icon: 'import_contacts',role : ''}  
+    {state: 'bill',name : 'View bill',icon: 'import_contacts',role : ''}  ,
+    {state: 'user',name : 'View user',icon: 'people',role : 'admin'}  
 ];
 
 @Injectable()
